@@ -23,7 +23,17 @@ spec:
     spec:
       template:
         spec:
+          {{- if .Values.cloudProvider.imagePullSecretName }}
+          imagePullSecrets:
+            - name: {{ .Values.cloudProvider.imagePullSecretName | quote }}
+          {{- end }}
           restartPolicy: {{ .Values.cron.restartPolicy }}
+          {{- if .Values.storage.gpkgsPvc.enabled }}
+          volumes:
+            - name: packages-volume
+              persistentVolumeClaim:
+                claimName: {{ .Values.storage.gpkgsPvc.name }} 
+          {{- end }}
           containers:
             - name: {{ $releaseName }}-{{ $chartName }}-deployment
               {{- with .Values.image }}
@@ -32,6 +42,29 @@ spec:
               envFrom:
                 - configMapRef:
                     name: {{ $releaseName }}-{{ $chartName }}-configmap
+              env:
+                {{- if .Values.storage.gpkgsPvc.enabled }}
+                - name: FS_MOUNT_DIR
+                  value: /packages
+                {{- end }}
+                {{- if  .Values.storage.s3Secret.enabled }}
+                - name: S3_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.storage.s3Secret.name }}
+                      key: accessKeyId
+                - name: S3_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.storage.s3Secret.name }}
+                      key: accessKeyId
+                {{- end }}
+              {{- if .Values.storage.gpkgsPvc.enabled }}
+              volumeMounts:
+                - name: packages-volume
+                  mountPath: /packages
+                  subPath: {{ .Values.storage.gpkgsPvc.volumeSubPath }}
+              {{- end }}
               {{- if .Values.resources.enabled }}
               resources:
                 {{- toYaml .Values.resources.value | nindent 16 }}

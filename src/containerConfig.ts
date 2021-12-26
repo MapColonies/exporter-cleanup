@@ -31,7 +31,7 @@ export const registerExternalValues = (options?: RegisterOptions): DependencyCon
     { token: SERVICES.TRACER, provider: { useValue: tracer } },
     { token: SERVICES.METER, provider: { useValue: meter } },
     { token: SERVICES.METRICS, provider: { useValue: metrics } },
-    getProvider(config,logger)
+    getProvider(config, logger),
   ];
 
   return registerDependencies(dependencies, options?.override, options?.useChild);

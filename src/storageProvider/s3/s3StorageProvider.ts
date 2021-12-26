@@ -29,9 +29,9 @@ export class S3StorageProvider implements IStorageProvider {
     });
     this.prefix = this.s3Config.prefix !== '' ? `${this.s3Config.prefix}/` : '';
   }
-  public async delete(path: string): Promise<void>{
+  public async delete(path: string): Promise<void> {
     const fullPath = `${this.prefix}${path}`;
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    await this.s3.deleteObject({ Bucket: this.s3Config.bucket,Key: fullPath}).promise();
+    await this.s3.deleteObject({ Bucket: this.s3Config.bucket, Key: fullPath }).promise();
   }
 }

@@ -9,6 +9,7 @@ environment: development
 
 cloudProvider:
   dockerRegistryUrl: my-registry-url.io
+  imagePullSecretName: 'my-registry-secret'
   flavor: openshift
 
 image:
@@ -22,6 +23,18 @@ cron:
   concurrencyPolicy: Forbid
   restartPolicy: OnFailure
 
+storage:
+  gpkgsPvc:
+    enabled: true
+    name: gpkgs-storage
+    volumeSubPath: gpkgs
+  s3Secret:
+    enabled: false
+    name: s3-secret
+    create: false #use for stand alone testing, global s3 secret name should be provided for full deployment
+    accessKeyId: "" #use for stand alone testing, global s3 secret name should be provided for full deployment
+    secretAccessKey: "" #use for stand alone testing, global s3 secret name should be provided for full deployment
+
 env:
   logLevel: info
   logPrettyPrintEnabled: false
@@ -31,6 +44,26 @@ env:
   metrics:
     enabled: false
     url: http://localhost:55681/v1/metrics
+  httpRetry:
+    attempts: 3
+    delay: exponential
+    shouldResetTimeout: true
+  jobManager:
+    url: http://localhost:8080
+  workerTypes:
+    tiles:
+      jobType: rasterTilesExporter
+      taskType: rasterTilesExporter
+  storageProvider: FS
+  fs:
+    subPath: ''
+  s3:
+    maxRetries: 3
+    endpointUrl: http://localhost:9000
+    bucket: raster-tiles-dev
+    apiVersion: 2006-03-01
+    sslEnabled: true
+    prefix: ''
 
 resources:
   enabled: true

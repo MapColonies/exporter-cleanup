@@ -31,6 +31,7 @@ export interface IExporterJobParameters {
   tilesPath: string;
   priority: number;
   crs: string;
+  packageName: string;
 }
 
 export interface ITaskResponse<T> {
@@ -43,22 +44,22 @@ export interface ITaskResponse<T> {
   attempts: number;
 }
 
-export interface IJobResponse<P,T> {
-  id: string,
-  resourceId: string,
-  version: string,
-  description: string,
-  parameters: P,
-  status: OperationStatus,
-  reason: string,
-  type: string,
-  percentage: number,
-  priority: number,
+export interface IJobResponse<P, T> {
+  id: string;
+  resourceId: string;
+  version: string;
+  description: string;
+  parameters: P;
+  status: OperationStatus;
+  reason: string;
+  type: string;
+  percentage: number;
+  priority: number;
   tasks?: ITaskResponse<T>[];
-  created: Date,
-  updated: Date,
-  isCleaned: boolean
-  expirationDate?: Date
+  created: Date;
+  updated: Date;
+  isCleaned: boolean;
+  expirationDate?: Date;
 }
 
-export type IExporterJobResponse = IJobResponse<IExporterJobParameters,IExporterTaskParameters>;
+export type IExporterJobResponse = IJobResponse<IExporterJobParameters, IExporterTaskParameters>;

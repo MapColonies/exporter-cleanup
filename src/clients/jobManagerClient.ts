@@ -21,7 +21,7 @@ export class JobManagerClient extends HttpClient {
       isCleaned: false,
       status: OperationStatus.COMPLETED,
       type: this.tilesJobType,
-      shouldReturnTasks: false
+      shouldReturnTasks: false,
     };
     const res = await this.get<IExporterJobResponse[]>('/jobs', query);
     return res;
@@ -32,17 +32,16 @@ export class JobManagerClient extends HttpClient {
       isCleaned: false,
       status: OperationStatus.FAILED,
       type: this.tilesJobType,
-      shouldReturnTasks: false
+      shouldReturnTasks: false,
     };
     const res = await this.get<IExporterJobResponse[]>('/jobs', query);
     return res;
   }
 
-  public async updateCleaned(jobId:string): Promise<void>{
+  public async updateCleaned(jobId: string): Promise<void> {
     const body = {
-      isCleaned: true
-    }
-    await this.put(`/jobs/${jobId}`,body);
+      isCleaned: true,
+    };
+    await this.put(`/jobs/${jobId}`, body);
   }
-
 }
