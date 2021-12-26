@@ -1,7 +1,7 @@
 {{- $releaseName := .Release.Name -}}
-{{- $chartName := include "ts-script-boilerplate.name" . -}}
-{{- $cloudProviderFlavor := include "ts-script-boilerplate.cloudProviderFlavor" . -}}
-{{- $cloudProviderDockerRegistryUrl := include "ts-script-boilerplate.cloudProviderDockerRegistryUrl" . -}}
+{{- $chartName := include "exporter-cleanup.name" . -}}
+{{- $cloudProviderFlavor := include "exporter-cleanup.cloudProviderFlavor" . -}}
+{{- $cloudProviderDockerRegistryUrl := include "exporter-cleanup.cloudProviderDockerRegistryUrl" . -}}
 {{- $imageTag := include "ts-server-boilerplate.tag" . -}}
 {{- if .Values.enabled -}}
 apiVersion: batch/v1beta1
@@ -11,9 +11,9 @@ metadata:
   labels:
     app: {{ $chartName }}
     component: {{ $chartName }}
-    environment: {{ include "ts-script-boilerplate.environment" . }}
+    environment: {{ include "exporter-cleanup.environment" . }}
     release: {{ $releaseName }}
-    {{- include "ts-script-boilerplate.labels" . | nindent 4 }}
+    {{- include "exporter-cleanup.labels" . | nindent 4 }}
 spec:
   schedule: {{ .Values.cron.schedule | quote }}
   successfulJobsHistoryLimit: {{ .Values.cron.successfulJobsHistoryLimit }}

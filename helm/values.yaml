@@ -12,7 +12,7 @@ cloudProvider:
   flavor: openshift
 
 image:
-  repository: ts-script-boilerplate
+  repository: exporter-cleanup
   tag: 'latest'
 
 cron:

@@ -1,1 +1,43 @@
-{}
+{
+  "telemetry": {
+    "serviceName": "TELEMETRY_SERVICE_NAME",
+    "hostname": "TELEMETRY_HOST_NAME",
+    "version": "TELEMETRY_SERVICE_VERSION",
+    "logger": {
+      "level": "LOG_LEVEL",
+      "prettyPrint": {
+        "__name": "LOG_PRETTY_PRINT_ENABLED",
+        "__format": "boolean"
+      }
+    },
+    "tracing": {
+      "enabled": "TELEMETRY_TRACING_ENABLED",
+      "url": "TELEMETRY_TRACING_URL"
+    },
+    "metrics": {
+      "enabled": "TELEMETRY_METRICS_ENABLED",
+      "url": "TELEMETRY_METRICS_URL",
+      "interval": "TELEMETRY_METRICS_INTERVAL"
+    }
+  },
+  "httpRetry": {
+    "attempts": {
+      "__name": "HTTP_RETRY_ATTEMPTS",
+      "__format": "number"
+    },
+    "delay": "HTTP_RETRY_DELAY",
+    "shouldResetTimeout": {
+      "__name": "HTTP_RETRY_SHOULD_RESET_TIMEOUT",
+      "__format": "boolean"
+    }
+  },
+  "jobManager": {
+    "url": "JOB_MANAGER_URL"
+  },
+  "workerTypes": {
+    "tiles": {
+      "jobType": "WORKER_TYPES_TILES_JOB_TYPE",
+      "taskType": "WORKER_TYPES_TILES_TASK_TYPE"
+    }
+  }
+}

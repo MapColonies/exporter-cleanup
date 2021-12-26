@@ -7,6 +7,7 @@ import { Metrics } from '@map-colonies/telemetry';
 import { SERVICES, SERVICE_NAME } from './common/constants';
 import { tracing } from './common/tracing';
 import { InjectionObject, registerDependencies } from './common/dependencyRegistration';
+import { getProvider } from './storageProvider/providerManager';
 
 export interface RegisterOptions {
   override?: InjectionObject<unknown>[];
@@ -30,6 +31,7 @@ export const registerExternalValues = (options?: RegisterOptions): DependencyCon
     { token: SERVICES.TRACER, provider: { useValue: tracer } },
     { token: SERVICES.METER, provider: { useValue: meter } },
     { token: SERVICES.METRICS, provider: { useValue: metrics } },
+    getProvider(config,logger)
   ];
 
   return registerDependencies(dependencies, options?.override, options?.useChild);
