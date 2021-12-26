@@ -3,7 +3,7 @@ import { inject, singleton } from 'tsyringe';
 import { JobManagerClient } from '../clients/jobManagerClient';
 import { SERVICES } from '../common/constants';
 import { IExporterJobResponse } from '../common/interfaces';
-import { IStorageProvider } from '../storageProvider/iStorageProvider';
+import { IStorageProvider } from '../storageProviders/iStorageProvider';
 
 @singleton()
 export class CleanupManager {
@@ -23,7 +23,13 @@ export class CleanupManager {
   private async findExpiredPackages(): Promise<IExporterJobResponse[]> {
     const now = new Date();
     const jobs = await this.jobManagerClient.getCompletedUncleanedJobs();
-    const expiredJobs = jobs.filter((job) => job.expirationDate != null && job.expirationDate < now);
+    const expiredJobs = jobs.filter((job) => {
+      const valid = job.expirationDate != null && job.expirationDate < now;
+      console.log(valid, job.expirationDate, now);
+      return valid;
+    });
+    console.log(jobs);
+    console.log(expiredJobs);
     return expiredJobs;
   }
 
