@@ -1,7 +1,6 @@
 # local configurations
 config/*local*.json
-helm/local/values.yaml
-
+helm/local
 # Logs
 logs
 *.log
