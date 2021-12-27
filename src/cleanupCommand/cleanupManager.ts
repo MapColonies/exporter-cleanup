@@ -23,13 +23,7 @@ export class CleanupManager {
   private async findExpiredPackages(): Promise<IExporterJobResponse[]> {
     const now = new Date();
     const jobs = await this.jobManagerClient.getCompletedUncleanedJobs();
-    const expiredJobs = jobs.filter((job) => {
-      const valid = job.expirationDate != null && job.expirationDate < now;
-      console.log(valid, job.expirationDate, now);
-      return valid;
-    });
-    console.log(jobs);
-    console.log(expiredJobs);
+    const expiredJobs = jobs.filter((job) => job.expirationDate != undefined && job.expirationDate < now);
     return expiredJobs;
   }
 

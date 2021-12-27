@@ -16,7 +16,7 @@ const failedJobs = [
     status: 'Failed',
     reason: '',
     isCleaned: false,
-    expirationDate: '2021-04-25T13:11:06.614Z',
+    expirationDate: new Date('2021-04-25T13:11:06.614Z'),
   },
   {
     id: '37451d7f-aaa3-4bc6-9e68-7cb5eae764b2',
@@ -31,7 +31,7 @@ const failedJobs = [
     status: 'Failed',
     reason: '',
     isCleaned: true,
-    expirationDate: '2021-04-25T13:13:06.614Z',
+    expirationDate: new Date('2021-04-25T13:13:06.614Z'),
   },
 ];
 const successfulJobs = [
@@ -47,7 +47,7 @@ const successfulJobs = [
     status: 'Completed',
     reason: '',
     isCleaned: false,
-    expirationDate: '2021-04-25T13:11:06.614Z',
+    expirationDate: new Date('2021-04-25T13:11:06.614Z'),
   },
   {
     id: '37451d7f-aaa3-4bc6-9e68-7cb5eae764b4',
@@ -62,7 +62,7 @@ const successfulJobs = [
     status: 'Completed',
     reason: '',
     isCleaned: true,
-    expirationDate: '2021-04-25T13:13:06.614Z',
+    expirationDate: new Date('2021-04-25T13:13:06.614Z'),
   },
 ];
 
@@ -98,14 +98,14 @@ describe('CleanupManager', () => {
 
       expect(getCompletedUncleanedJobsMock).toHaveBeenCalledTimes(1);
       expect(getFailedUncleanedJobsMock).toHaveBeenCalledTimes(1);
-      //expect(updateCleaned).toHaveBeenCalledTimes(3);
-      expect(updateCleaned).toHaveBeenCalledWith([
-        '37451d7f-aaa3-4bc6-9e68-7cb5eae764b1',
-        '37451d7f-aaa3-4bc6-9e68-7cb5eae764b2',
-        '37451d7f-aaa3-4bc6-9e68-7cb5eae764b3',
-      ]);
+      expect(updateCleaned).toHaveBeenCalledTimes(3);
+      expect(updateCleaned).toHaveBeenNthCalledWith(1,'37451d7f-aaa3-4bc6-9e68-7cb5eae764b3');
+      expect(updateCleaned).toHaveBeenNthCalledWith(2,'37451d7f-aaa3-4bc6-9e68-7cb5eae764b1');
+      expect(updateCleaned).toHaveBeenNthCalledWith(3,'37451d7f-aaa3-4bc6-9e68-7cb5eae764b2');
       expect(deleteMock).toHaveBeenCalledTimes(3);
-      expect(deleteMock).toHaveBeenCalledWith(['test1.gpkg', 'test2.gpkg', 'test3.gpkg']);
+      expect(deleteMock).toHaveBeenNthCalledWith(1,'test3.gpkg');
+      expect(deleteMock).toHaveBeenNthCalledWith(2,'test1.gpkg');
+      expect(deleteMock).toHaveBeenNthCalledWith(3,'test2.gpkg');
     });
   });
 });
