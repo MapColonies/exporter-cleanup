@@ -1,6 +1,6 @@
 import { App } from '../../../../src/app';
 
-export class HelloWorldCommandCliTrigger {
+export class CleanupCommandCliTrigger {
   public constructor(private readonly app: App) {}
 
   public async callCli(args: string[]): Promise<void> {
@@ -8,7 +8,7 @@ export class HelloWorldCommandCliTrigger {
   }
 
   public async callAlias(): Promise<void> {
-    await this.callCli(['helloWorld']);
+    await this.callCli(['cleanup']);
   }
 
   public async callDefault(): Promise<void> {

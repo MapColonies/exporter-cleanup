@@ -1,7 +1,12 @@
 import jsLogger from '@map-colonies/js-logger';
 import { CleanupManager } from '../../../src/cleanupCommand/cleanupManager';
 import { providerMock, deleteMock } from '../../mocks/storageProviders/storageProvider';
-import { jobManagerClientMock, getCompletedUncleanedJobsMock, getFailedUncleanedJobsMock, updateCleaned } from '../../mocks/clients/jobManagerClient';
+import {
+  jobManagerClientMock,
+  getCompletedUncleanedJobsMock,
+  getFailedUncleanedJobsMock,
+  updateCleanedMock,
+} from '../../mocks/clients/jobManagerClient';
 
 const failedJobs = [
   {
@@ -91,21 +96,21 @@ describe('CleanupManager', () => {
     it('deletes all failed and expired packages', async () => {
       getCompletedUncleanedJobsMock.mockResolvedValue(successfulJobs);
       getFailedUncleanedJobsMock.mockResolvedValue(failedJobs);
-      updateCleaned.mockResolvedValue(undefined);
+      updateCleanedMock.mockResolvedValue(undefined);
       deleteMock.mockResolvedValue(undefined);
 
       await manager.cleanPackages();
 
       expect(getCompletedUncleanedJobsMock).toHaveBeenCalledTimes(1);
       expect(getFailedUncleanedJobsMock).toHaveBeenCalledTimes(1);
-      expect(updateCleaned).toHaveBeenCalledTimes(3);
-      expect(updateCleaned).toHaveBeenNthCalledWith(1,'37451d7f-aaa3-4bc6-9e68-7cb5eae764b3');
-      expect(updateCleaned).toHaveBeenNthCalledWith(2,'37451d7f-aaa3-4bc6-9e68-7cb5eae764b1');
-      expect(updateCleaned).toHaveBeenNthCalledWith(3,'37451d7f-aaa3-4bc6-9e68-7cb5eae764b2');
+      expect(updateCleanedMock).toHaveBeenCalledTimes(3);
+      expect(updateCleanedMock).toHaveBeenNthCalledWith(1, '37451d7f-aaa3-4bc6-9e68-7cb5eae764b3');
+      expect(updateCleanedMock).toHaveBeenNthCalledWith(2, '37451d7f-aaa3-4bc6-9e68-7cb5eae764b1');
+      expect(updateCleanedMock).toHaveBeenNthCalledWith(3, '37451d7f-aaa3-4bc6-9e68-7cb5eae764b2');
       expect(deleteMock).toHaveBeenCalledTimes(3);
-      expect(deleteMock).toHaveBeenNthCalledWith(1,'test3.gpkg');
-      expect(deleteMock).toHaveBeenNthCalledWith(2,'test1.gpkg');
-      expect(deleteMock).toHaveBeenNthCalledWith(3,'test2.gpkg');
+      expect(deleteMock).toHaveBeenNthCalledWith(1, 'test3.gpkg');
+      expect(deleteMock).toHaveBeenNthCalledWith(2, 'test1.gpkg');
+      expect(deleteMock).toHaveBeenNthCalledWith(3, 'test2.gpkg');
     });
   });
 });

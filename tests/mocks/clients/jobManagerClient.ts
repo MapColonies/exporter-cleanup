@@ -10,4 +10,4 @@ const jobManagerClientMock = {
   updateCleaned: updateCleanedMock,
 } as unknown as JobManagerClient;
 
-export { jobManagerClientMock, getCompletedUncleanedJobsMock, getFailedUncleanedJobsMock, updateCleanedMock as updateCleaned };
+export { jobManagerClientMock, getCompletedUncleanedJobsMock, getFailedUncleanedJobsMock, updateCleanedMock };
