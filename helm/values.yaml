@@ -49,7 +49,7 @@ env:
     delay: exponential
     shouldResetTimeout: true
   jobManager:
-    url: http://localhost:8080
+    url: http://job-manager-job-manager
   workerTypes:
     tiles:
       jobType: rasterTilesExporter
