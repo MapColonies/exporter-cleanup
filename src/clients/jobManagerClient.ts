@@ -2,8 +2,9 @@ import { inject, injectable } from 'tsyringe';
 import config from 'config';
 import { HttpClient, IHttpRetryConfig } from '@map-colonies/mc-utils';
 import { Logger } from '@map-colonies/js-logger';
-import { IExporterJobResponse, OperationStatus } from '../common/interfaces';
+import { IExporterJobResponse } from '../common/interfaces';
 import { SERVICES } from '../common/constants';
+import { OperationStatus } from '../common/enums';
 
 @injectable()
 export class JobManagerClient extends HttpClient {

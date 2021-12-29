@@ -1,14 +1,10 @@
+import { OperationStatus } from './enums';
+
 export interface IConfig {
   get: <T>(setting: string) => T;
   has: (setting: string) => boolean;
 }
 
-export enum OperationStatus {
-  PENDING = 'Pending',
-  IN_PROGRESS = 'In-Progress',
-  COMPLETED = 'Completed',
-  FAILED = 'Failed',
-}
 export interface IExporterTaskParameters {
   dbId: string;
   crs: string;
