@@ -1,6 +1,6 @@
 {
   "name": "exporter-cleanup",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "map exporter cleanup cron job",
   "main": "./src/index.ts",
   "scripts": {
