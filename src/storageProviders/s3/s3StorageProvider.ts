@@ -1,4 +1,4 @@
-import { inject } from 'tsyringe';
+import { autoInjectable, inject } from 'tsyringe';
 import { S3, Credentials } from 'aws-sdk';
 import { CredentialsOptions } from 'aws-sdk/lib/credentials';
 import { Logger } from '@map-colonies/js-logger';
@@ -7,6 +7,7 @@ import { IConfig } from '../../common/interfaces';
 import { IStorageProvider } from '../iStorageProvider';
 import { IS3Config } from './iS3Config';
 
+@autoInjectable()
 export class S3StorageProvider implements IStorageProvider {
   private readonly s3: S3;
   private readonly s3Config: IS3Config;
