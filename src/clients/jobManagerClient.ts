@@ -26,8 +26,8 @@ export class JobManagerClient extends HttpClient {
     };
     const res = await this.get<IExporterJobResponse[] | undefined>('/jobs', query);
     if (!res) {
-return [];
-}
+      return [];
+    }
     return res;
   }
 
@@ -40,8 +40,8 @@ return [];
     };
     const res = await this.get<IExporterJobResponse[] | undefined>('/jobs', query);
     if (!res) {
-return [];
-}
+      return [];
+    }
     return res;
   }
 
