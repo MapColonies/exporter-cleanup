@@ -1,10 +1,11 @@
 import { promises as fsp } from 'fs';
 import { join as pathJoin } from 'path';
-import { inject } from 'tsyringe';
+import { autoInjectable, inject } from 'tsyringe';
 import { SERVICES } from '../../common/constants';
 import { IConfig } from '../../common/interfaces';
 import { IStorageProvider } from '../iStorageProvider';
 
+@autoInjectable()
 export class FsStorageProvider implements IStorageProvider {
   private readonly basePath: string;
   public constructor(@inject(SERVICES.CONFIG) private readonly config: IConfig) {

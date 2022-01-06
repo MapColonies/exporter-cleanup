@@ -24,7 +24,10 @@ export class JobManagerClient extends HttpClient {
       type: this.tilesJobType,
       shouldReturnTasks: false,
     };
-    const res = await this.get<IExporterJobResponse[]>('/jobs', query);
+    const res = await this.get<IExporterJobResponse[] | undefined>('/jobs', query);
+    if (!res) {
+      return [];
+    }
     return res;
   }
 
@@ -35,7 +38,10 @@ export class JobManagerClient extends HttpClient {
       type: this.tilesJobType,
       shouldReturnTasks: false,
     };
-    const res = await this.get<IExporterJobResponse[]>('/jobs', query);
+    const res = await this.get<IExporterJobResponse[] | undefined>('/jobs', query);
+    if (!res) {
+      return [];
+    }
     return res;
   }
 
