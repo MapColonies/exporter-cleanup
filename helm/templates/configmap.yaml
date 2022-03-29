@@ -20,15 +20,14 @@ data:
   HTTP_RETRY_ATTEMPTS: {{ quote .Values.env.httpRetry.attempts }}
   HTTP_RETRY_DELAY: {{ quote .Values.env.httpRetry.delay }}
   HTTP_RETRY_RESET_TIMEOUT: {{ quote .Values.env.httpRetry.delay }}
-  JOB_MANAGER_URL: {{ quote .Values.env.jobManager.url }}
-  WORKER_TYPES_TILES_JOB_TYPE: {{ quote .Values.env.workerTypes.tiles.jobType }}
-  WORKER_TYPES_TILES_TASK_TYPE: {{ quote .Values.env.workerTypes.tiles.taskType }}
+  JOB_MANAGER_URL: {{ quote .Values.rasterCommon.serviceUrls.jobManager }}
+  WORKER_TYPES_TILES_JOB_TYPE: {{ quote .Values.rasterCommon.jobManagement.exporter.jobType }}
+  WORKER_TYPES_TILES_TASK_TYPE: {{ quote .Values.rasterCommon.jobManagement.exporter.taskType }}
   STORAGE_PROVIDER: {{ quote .Values.env.storageProvider }}
-  FS_SUB_PATH: {{ quote .Values.env.fs.subPath }}
-  S3_API_VERSION: {{ quote .Values.env.s3.apiVersion }}
-  S3_ENDPOINT: {{ quote .Values.env.s3.endpointUrl }}
-  S3_SSL_ENABLED: {{ quote .Values.env.s3.sslEnabled }}
+  S3_API_VERSION: {{ quote .Values.rasterCommon.storage.s3.apiVersion }}
+  S3_ENDPOINT: {{ quote .Values.rasterCommon.storage.s3.endpointUrl }}
+  S3_SSL_ENABLED: {{ quote .Values.rasterCommon.storage.s3.sslEnabled }}
   S3_MAX_RETRIES: {{ quote .Values.env.s3.maxRetries }}
-  S3_BUCKET: {{ quote .Values.env.s3.bucket }}
+  S3_BUCKET: {{ quote .Values.rasterCommon.storage.s3.tilesBucket }}
   S3_PREFIX: {{ quote .Values.env.s3.prefix }}
 {{- end }}
