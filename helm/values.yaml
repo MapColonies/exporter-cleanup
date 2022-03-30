@@ -30,8 +30,8 @@ rasterCommon:
     exporter:
       jobType: tilesExport
       taskType: tilesExport
-  storageProvider: FS
   storage:
+    gpkgProvider: FS
     fs:
       gpkgsPvc:
         enabled: true
