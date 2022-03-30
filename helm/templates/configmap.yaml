@@ -23,7 +23,7 @@ data:
   JOB_MANAGER_URL: {{ quote .Values.rasterCommon.serviceUrls.jobManager }}
   WORKER_TYPES_TILES_JOB_TYPE: {{ quote .Values.rasterCommon.jobManagement.exporter.jobType }}
   WORKER_TYPES_TILES_TASK_TYPE: {{ quote .Values.rasterCommon.jobManagement.exporter.taskType }}
-  STORAGE_PROVIDER: {{ quote .Values.env.storageProvider }}
+  STORAGE_PROVIDER: {{ quote .Values.rasterCommon.storageProvider }}
   S3_API_VERSION: {{ quote .Values.rasterCommon.storage.s3.apiVersion }}
   S3_ENDPOINT: {{ quote .Values.rasterCommon.storage.s3.endpointUrl }}
   S3_SSL_ENABLED: {{ quote .Values.rasterCommon.storage.s3.sslEnabled }}
