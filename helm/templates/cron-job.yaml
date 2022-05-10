@@ -2,6 +2,7 @@
 {{- $chartName := include "exporter-cleanup.name" . -}}
 {{- $cloudProviderFlavor := include "exporter-cleanup.cloudProviderFlavor" . -}}
 {{- $cloudProviderDockerRegistryUrl := include "exporter-cleanup.cloudProviderDockerRegistryUrl" . -}}
+{{- $cloudProviderImagePullSecretName := include "exporter-cleanup.cloudProviderImagePullSecretName" . -}}
 {{- $imageTag := include "ts-server-boilerplate.tag" . -}}
 {{- if .Values.enabled -}}
 apiVersion: batch/v1beta1
@@ -23,9 +24,9 @@ spec:
     spec:
       template:
         spec:
-          {{- if .Values.cloudProvider.imagePullSecretName }}
+          {{- if $cloudProviderImagePullSecretName }}
           imagePullSecrets:
-            - name: {{ .Values.cloudProvider.imagePullSecretName | quote }}
+            - name: {{ $cloudProviderImagePullSecretName | quote }}
           {{- end }}
           restartPolicy: {{ .Values.cron.restartPolicy }}
           {{- if .Values.rasterCommon.storage.fs.internalPvc.enabled }}
