@@ -2,6 +2,7 @@
 {{- $chartName := include "exporter-cleanup.name" . -}}
 {{- $cloudProviderFlavor := include "exporter-cleanup.cloudProviderFlavor" . -}}
 {{- $cloudProviderDockerRegistryUrl := include "exporter-cleanup.cloudProviderDockerRegistryUrl" . -}}
+{{- $cloudProviderImagePullSecretName := include "exporter-cleanup.cloudProviderImagePullSecretName" . -}}
 {{- $imageTag := include "ts-server-boilerplate.tag" . -}}
 {{- if .Values.enabled -}}
 apiVersion: batch/v1beta1
@@ -23,16 +24,16 @@ spec:
     spec:
       template:
         spec:
-          {{- if .Values.cloudProvider.imagePullSecretName }}
+          {{- if $cloudProviderImagePullSecretName }}
           imagePullSecrets:
-            - name: {{ .Values.cloudProvider.imagePullSecretName | quote }}
+            - name: {{ $cloudProviderImagePullSecretName | quote }}
           {{- end }}
           restartPolicy: {{ .Values.cron.restartPolicy }}
-          {{- if .Values.rasterCommon.storage.fs.gpkgsPvc.enabled }}
+          {{- if .Values.rasterCommon.storage.fs.internalPvc.enabled }}
           volumes:
             - name: packages-volume
               persistentVolumeClaim:
-                claimName: {{ .Values.rasterCommon.storage.fs.gpkgsPvc.name }} 
+                claimName: {{ .Values.rasterCommon.storage.fs.internalPvc.name }} 
           {{- end }}
           containers:
             - name: {{ $releaseName }}-{{ $chartName }}-deployment
@@ -43,11 +44,11 @@ spec:
                 - configMapRef:
                     name: {{ $releaseName }}-{{ $chartName }}-configmap
               env:
-                {{- if .Values.rasterCommon.storage.fs.gpkgsPvc.enabled }}
+                {{- if .Values.rasterCommon.storage.fs.internalPvc.enabled }}
                 - name: FS_MOUNT_DIR
                   value: /packages
                 - name: FS_SUB_PATH
-                  value: {{ .Values.rasterCommon.storage.fs.gpkgsPvc.subPath }}
+                  value: {{ .Values.rasterCommon.storage.fs.internalPvc.gpkgSubPath }}
                 {{- end }}
                 {{- if eq (upper .Values.rasterCommon.storage.gpkgProvider) "S3" }}
                 - name: S3_ACCESS_KEY_ID
@@ -61,11 +62,11 @@ spec:
                       name: {{ .Values.rasterCommon.storage.s3.secretName }}
                       key: accessKeyId
                 {{- end }}
-              {{- if .Values.rasterCommon.storage.fs.gpkgsPvc.enabled }}
+              {{- if .Values.rasterCommon.storage.fs.internalPvc.enabled }}
               volumeMounts:
                 - name: packages-volume
                   mountPath: /packages
-                  subPath: {{ .Values.rasterCommon.storage.fs.gpkgsPvc.subPath }}
+                  subPath: {{ .Values.rasterCommon.storage.fs.internalPvc.gpkgSubPath }}
               {{- end }}
               {{- if .Values.resources.enabled }}
               resources:

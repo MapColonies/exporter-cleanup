@@ -33,14 +33,10 @@ rasterCommon:
   storage:
     gpkgProvider: FS
     fs:
-      gpkgsPvc:
-        enabled: true
-        name: gpkgs-storage
-        subPath: gpkgs
       internalPvc:
         enabled: true
-        name: internal-pvc
-        subPath: tiles
+        name: gpkgs-storage
+        gpkgSubPath: gpkgs
     s3:
       endpointUrl: "10.8.1.13:9000"
       tilesBucket: "raster-tiles-raster-dev"
