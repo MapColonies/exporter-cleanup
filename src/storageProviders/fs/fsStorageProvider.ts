@@ -1,6 +1,6 @@
-import { ILogger } from '@map-colonies/mc-utils';
 import { promises as fsp } from 'fs';
 import { join as pathJoin } from 'path';
+import { ILogger } from '@map-colonies/mc-utils';
 import { autoInjectable, inject } from 'tsyringe';
 import { SERVICES } from '../../common/constants';
 import { IConfig } from '../../common/interfaces';
