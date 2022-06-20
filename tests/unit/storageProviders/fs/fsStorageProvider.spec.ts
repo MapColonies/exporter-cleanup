@@ -31,7 +31,7 @@ describe('fsStorageProvider', () => {
       await fsStorageProvider.delete('test.gpkg');
 
       expect(unlinkMock).toHaveBeenCalledTimes(1);
-      expect(unlinkMock).toHaveBeenCalledWith('mount/sub/test.gpkg');
+      expect(unlinkMock).toHaveBeenCalledWith('mount/test.gpkg');
     });
 
     it('dont thorw error when file dont exists', async () => {
@@ -45,7 +45,7 @@ describe('fsStorageProvider', () => {
 
       await expect(action).resolves.not.toThrow();
       expect(unlinkMock).toHaveBeenCalledTimes(1);
-      expect(unlinkMock).toHaveBeenCalledWith('mount/sub/test.gpkg');
+      expect(unlinkMock).toHaveBeenCalledWith('mount/test.gpkg');
     });
 
     it('throw error when  the error is not "file not exist"', async () => {
@@ -59,7 +59,7 @@ describe('fsStorageProvider', () => {
 
       await expect(action).rejects.toBe(testError);
       expect(unlinkMock).toHaveBeenCalledTimes(1);
-      expect(unlinkMock).toHaveBeenCalledWith('mount/sub/test.gpkg');
+      expect(unlinkMock).toHaveBeenCalledWith('mount/test.gpkg');
     });
   });
 });
