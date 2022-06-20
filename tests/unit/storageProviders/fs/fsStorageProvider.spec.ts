@@ -1,8 +1,10 @@
+import jsLogger from '@map-colonies/js-logger';
 import { promises } from 'fs';
 import path from 'path';
 import { FsStorageProvider } from '../../../../src/storageProviders/fs/fsStorageProvider';
 import { configMock, initConfig, setConfigValue } from '../../../mocks/config';
 
+const logger = jsLogger({ enabled: false });
 let unlinkMock: jest.SpyInstance;
 //fix linter dont liking variable names with "Provider"
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -15,7 +17,7 @@ describe('fsStorageProvider', () => {
     setConfigValue('fs.subPath', 'sub');
     unlinkMock = jest.spyOn(promises, 'unlink');
     jest.spyOn(path, 'join').mockImplementation((...args) => args.join('/'));
-    fsStorageProvider = new FsStorageProvider(configMock);
+    fsStorageProvider = new FsStorageProvider(configMock, logger);
   });
 
   afterEach(() => {
