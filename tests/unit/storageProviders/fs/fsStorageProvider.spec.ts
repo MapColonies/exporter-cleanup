@@ -1,6 +1,6 @@
-import jsLogger from '@map-colonies/js-logger';
 import { promises } from 'fs';
 import path from 'path';
+import jsLogger from '@map-colonies/js-logger';
 import { FsStorageProvider } from '../../../../src/storageProviders/fs/fsStorageProvider';
 import { configMock, initConfig, setConfigValue } from '../../../mocks/config';
 
