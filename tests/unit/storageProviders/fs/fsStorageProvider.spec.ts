@@ -5,8 +5,8 @@ import { FsStorageProvider } from '../../../../src/storageProviders/fs/fsStorage
 import { configMock, initConfig, setConfigValue } from '../../../mocks/config';
 
 const logger = jsLogger({ enabled: false });
-let unlinkMock: jest.SpyInstance;
-//fix linter dont liking variable names with "Provider"
+let rmdir: jest.SpyInstance;
+//fix linter don't liking variable names with "Provider"
 // eslint-disable-next-line @typescript-eslint/naming-convention
 let fsStorageProvider: FsStorageProvider;
 
@@ -15,7 +15,7 @@ describe('fsStorageProvider', () => {
     initConfig();
     setConfigValue('fs.mountDir', 'mount');
     setConfigValue('fs.subPath', 'sub');
-    unlinkMock = jest.spyOn(promises, 'unlink');
+    rmdir = jest.spyOn(promises, 'rmdir');
     jest.spyOn(path, 'join').mockImplementation((...args) => args.join('/'));
     fsStorageProvider = new FsStorageProvider(configMock, logger);
   });
@@ -27,11 +27,11 @@ describe('fsStorageProvider', () => {
 
   describe('delete', () => {
     it('deletes expected package', async () => {
-      unlinkMock.mockResolvedValue(undefined);
-      await fsStorageProvider.delete('test.gpkg');
+      rmdir.mockResolvedValue(undefined);
+      await fsStorageProvider.delete('test_location');
 
-      expect(unlinkMock).toHaveBeenCalledTimes(1);
-      expect(unlinkMock).toHaveBeenCalledWith('mount/test.gpkg');
+      expect(rmdir).toHaveBeenCalledTimes(1);
+      expect(rmdir).toHaveBeenCalledWith('mount/test_location', { recursive: true });
     });
 
     it('dont thorw error when file dont exists', async () => {
@@ -39,13 +39,13 @@ describe('fsStorageProvider', () => {
         ...new Error('test error'),
         code: 'ENOENT',
       };
-      unlinkMock.mockRejectedValue(fileNotExistsError);
+      rmdir.mockRejectedValue(fileNotExistsError);
 
-      const action = fsStorageProvider.delete('test.gpkg');
+      const action = fsStorageProvider.delete('test_location');
 
       await expect(action).resolves.not.toThrow();
-      expect(unlinkMock).toHaveBeenCalledTimes(1);
-      expect(unlinkMock).toHaveBeenCalledWith('mount/test.gpkg');
+      expect(rmdir).toHaveBeenCalledTimes(1);
+      expect(rmdir).toHaveBeenCalledWith('mount/test_location', { recursive: true });
     });
 
     it('throw error when  the error is not "file not exist"', async () => {
@@ -53,13 +53,13 @@ describe('fsStorageProvider', () => {
         ...new Error('test error'),
         code: 'testCode',
       };
-      unlinkMock.mockRejectedValue(testError);
+      rmdir.mockRejectedValue(testError);
 
-      const action = fsStorageProvider.delete('test.gpkg');
+      const action = fsStorageProvider.delete('test_location');
 
       await expect(action).rejects.toBe(testError);
-      expect(unlinkMock).toHaveBeenCalledTimes(1);
-      expect(unlinkMock).toHaveBeenCalledWith('mount/test.gpkg');
+      expect(rmdir).toHaveBeenCalledTimes(1);
+      expect(rmdir).toHaveBeenCalledWith('mount/test_location', { recursive: true });
     });
   });
 });

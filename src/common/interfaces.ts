@@ -27,7 +27,8 @@ export interface IExporterJobParameters {
   tilesPath: string;
   priority: number;
   crs: string;
-  packageName: string;
+  fileName: string;
+  relativeDirectoryPath: string;
 }
 
 export interface ITaskResponse<T> {

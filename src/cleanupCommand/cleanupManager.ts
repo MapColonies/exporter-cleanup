@@ -33,7 +33,7 @@ export class CleanupManager {
   }
 
   private getPackagePath(job: IExporterJobResponse): string {
-    const path = job.parameters.packageName;
+    const path = job.parameters.relativeDirectoryPath;
     return path;
   }
 

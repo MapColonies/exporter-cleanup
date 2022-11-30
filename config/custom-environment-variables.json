@@ -59,6 +59,10 @@
       "__format": "number"
     },
     "bucket": "S3_BUCKET",
-    "prefix": "S3_PREFIX"
+    "prefix": "S3_PREFIX",
+    "batchSize": {
+      "__name": "BATCH_SIZE",
+      "__format": "number"
+    }
   }
 }

@@ -7,4 +7,5 @@ export interface IS3Config {
   maxRetries: number;
   bucket: string;
   prefix: string;
+  batchSize: number;
 }
