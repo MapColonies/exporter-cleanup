@@ -41,7 +41,7 @@ export class S3StorageProvider implements IStorageProvider {
     this.batchSize = this.s3Config.batchSize;
   }
   public async delete(path: string): Promise<void> {
-    this.logger.info(`Will execute deletion of full directory: ${path}`)
+    this.logger.info(`Will execute deletion of full directory: ${path}`);
     let { itemsToDelete, continuationToken } = await this.parseItemsFromS3(path);
     while (itemsToDelete != undefined && itemsToDelete.length !== 0) {
       await this.deleteFromS3(itemsToDelete);
