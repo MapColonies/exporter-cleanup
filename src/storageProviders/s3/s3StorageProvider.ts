@@ -11,10 +11,12 @@ interface S3Key {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   Key: string;
 }
+
 interface S3FindResponse {
   itemsToDelete?: S3Key[];
   continuationToken?: string;
 }
+
 @autoInjectable()
 export class S3StorageProvider implements IStorageProvider {
   private readonly s3: S3;
@@ -39,6 +41,7 @@ export class S3StorageProvider implements IStorageProvider {
     this.batchSize = this.s3Config.batchSize;
   }
   public async delete(path: string): Promise<void> {
+    this.logger.info(`Will execute deletion of full directory: ${path}`)
     let { itemsToDelete, continuationToken } = await this.parseItemsFromS3(path);
     while (itemsToDelete != undefined && itemsToDelete.length !== 0) {
       await this.deleteFromS3(itemsToDelete);
@@ -49,7 +52,7 @@ export class S3StorageProvider implements IStorageProvider {
   }
 
   private async parseItemsFromS3(prefix: string, continuationToken?: string): Promise<S3FindResponse> {
-    this.logger.info(`Listing objects with prefix ${prefix} from bucket ${this.s3Config.bucket}`);
+    this.logger.debug(`Listing objects with prefix ${prefix} from bucket ${this.s3Config.bucket}`);
     /* eslint-disable @typescript-eslint/naming-convention */
     const res = await this.s3
       .listObjectsV2({
@@ -70,7 +73,7 @@ export class S3StorageProvider implements IStorageProvider {
   }
 
   private async deleteFromS3(s3Keys: S3Key[]): Promise<void> {
-    this.logger.info(`Deleting objects from bucket ${this.s3Config.bucket}`);
+    this.logger.debug(`Deleting objects from bucket ${this.s3Config.bucket}`);
     this.logger.debug(JSON.stringify(s3Keys));
     // eslint-disable-next-line @typescript-eslint/naming-convention
     await this.s3.deleteObjects({ Bucket: this.s3Config.bucket, Delete: { Objects: s3Keys } }).promise();

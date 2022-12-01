@@ -15,7 +15,7 @@ export class FsStorageProvider implements IStorageProvider {
 
   public async delete(path: string): Promise<void> {
     const fullPath = pathJoin(this.basePath, path);
-    this.logger.debug(`Deleting entire exporting path ${fullPath}`);
+    this.logger.info(`Deleting entire exporting path ${fullPath}`);
     try {
       await fsp.rmdir(fullPath, { recursive: true });
     } catch (err) {
