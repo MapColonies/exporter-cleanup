@@ -14,7 +14,7 @@ const failedJobs = [
     resourceId: 'demo_1',
     version: 'tiles',
     parameters: {
-      packageName: 'test1.gpkg',
+      relativeDirectoryPath: 'test1',
     },
     created: '2021-04-25T13:10:06.614Z',
     updated: '2021-04-25T13:10:06.614Z',
@@ -29,7 +29,7 @@ const failedJobs = [
     version: 'tiles',
     tasks: [],
     parameters: {
-      packageName: 'test2.gpkg',
+      relativeDirectoryPath: 'test2',
     },
     created: '2021-04-11T13:11:06.614Z',
     updated: '2021-04-11T13:11:06.614Z',
@@ -45,7 +45,7 @@ const successfulJobs = [
     resourceId: 'demo_3',
     version: 'tiles',
     parameters: {
-      packageName: 'test3.gpkg',
+      relativeDirectoryPath: 'test3',
     },
     created: '2021-04-25T13:10:06.614Z',
     updated: '2021-04-25T13:10:06.614Z',
@@ -60,7 +60,7 @@ const successfulJobs = [
     version: 'tiles',
     tasks: [],
     parameters: {
-      packageName: 'test4.gpkg',
+      relativeDirectoryPath: 'test4',
     },
     created: '2021-04-11T13:11:06.614Z',
     updated: '2021-04-11T13:11:06.614Z',
@@ -108,9 +108,9 @@ describe('CleanupManager', () => {
       expect(updateCleanedMock).toHaveBeenNthCalledWith(2, '37451d7f-aaa3-4bc6-9e68-7cb5eae764b1');
       expect(updateCleanedMock).toHaveBeenNthCalledWith(3, '37451d7f-aaa3-4bc6-9e68-7cb5eae764b2');
       expect(deleteMock).toHaveBeenCalledTimes(3);
-      expect(deleteMock).toHaveBeenNthCalledWith(1, 'test3.gpkg');
-      expect(deleteMock).toHaveBeenNthCalledWith(2, 'test1.gpkg');
-      expect(deleteMock).toHaveBeenNthCalledWith(3, 'test2.gpkg');
+      expect(deleteMock).toHaveBeenNthCalledWith(1, 'test3');
+      expect(deleteMock).toHaveBeenNthCalledWith(2, 'test1');
+      expect(deleteMock).toHaveBeenNthCalledWith(3, 'test2');
     });
   });
 });

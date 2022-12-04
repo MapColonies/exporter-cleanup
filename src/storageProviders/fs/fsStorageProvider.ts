@@ -15,9 +15,9 @@ export class FsStorageProvider implements IStorageProvider {
 
   public async delete(path: string): Promise<void> {
     const fullPath = pathJoin(this.basePath, path);
-    this.logger.debug(`Deleting file in path ${fullPath}`);
+    this.logger.info(`Deleting entire exporting path ${fullPath}`);
     try {
-      await fsp.unlink(fullPath);
+      await fsp.rmdir(fullPath, { recursive: true });
     } catch (err) {
       const error = err as NodeJS.ErrnoException;
       //ignore file not found error

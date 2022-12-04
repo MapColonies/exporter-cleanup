@@ -41,6 +41,7 @@
     "sslEnabled": false,
     "maxRetries": 3,
     "bucket": "raster",
-    "prefix": ""
+    "prefix": "",
+    "batchSize": 1000
   }
 }
