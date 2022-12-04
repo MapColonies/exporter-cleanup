@@ -65,6 +65,7 @@ env:
   s3:
     maxRetries: 3
     prefix: ''
+    batchSize: 100
 
 resources:
   enabled: true
