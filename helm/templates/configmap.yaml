@@ -30,4 +30,5 @@ data:
   S3_MAX_RETRIES: {{ quote .Values.env.s3.maxRetries }}
   S3_BUCKET: {{ quote .Values.rasterCommon.storage.s3.tilesBucket }}
   S3_PREFIX: {{ quote .Values.env.s3.prefix }}
+  BATCH_SIZE: {{ quote .Values.env.s3.batchSize }}
 {{- end }}
