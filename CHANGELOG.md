@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/MapColonies/exporter-cleanup/compare/v2.1.2...v2.2.0) (2022-12-27)
+
+
+### Features
+
+* update cleanup be compatible to directory cleanup (MAPCO-2726 MAPCO-2607) ([#12](https://github.com/MapColonies/exporter-cleanup/issues/12)) ([1f4e9f3](https://github.com/MapColonies/exporter-cleanup/commit/1f4e9f37c0745f1aa74cf6baf398913e92da7872))
+
 ### [2.1.2](https://github.com/MapColonies/exporter-cleanup/compare/v2.1.1...v2.1.2) (2022-01-10)
 
 ### [2.1.1](https://github.com/MapColonies/exporter-cleanup/compare/v2.1.0...v2.1.1) (2022-01-10)
