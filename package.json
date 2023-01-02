@@ -42,7 +42,7 @@
     "@map-colonies/mc-utils": "^1.2.0",
     "@map-colonies/read-pkg": "0.0.1",
     "@map-colonies/telemetry": "3.0.0",
-    "@opentelemetry/api": "1.0.1",
+    "@opentelemetry/api": "1.0.3",
     "@opentelemetry/api-metrics": "0.23.0",
     "@opentelemetry/instrumentation-http": "0.23.0",
     "aws-sdk": "^2.1048.0",
