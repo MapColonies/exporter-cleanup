@@ -5,6 +5,11 @@ export interface IConfig {
   has: (setting: string) => boolean;
 }
 
+export interface ICleanupData {
+  directoryPath?: string;
+  cleanupExpirationTime?: Date;
+}
+
 export interface IExporterTaskParameters {
   dbId: string;
   crs: string;
@@ -18,17 +23,8 @@ export interface IExporterTaskParameters {
   packageName: string;
 }
 
-export interface IExporterJobParameters {
-  userId: string;
-  footprint: unknown;
-  bbox: unknown;
-  version: string;
-  cswProductId: string;
-  tilesPath: string;
-  priority: number;
-  crs: string;
-  fileName: string;
-  relativeDirectoryPath: string;
+export interface IExporterCleanupParameters {
+  cleanupData?: ICleanupData;
 }
 
 export interface ITaskResponse<T> {
@@ -59,4 +55,4 @@ export interface IJobResponse<P, T> {
   expirationDate?: Date;
 }
 
-export type IExporterJobResponse = IJobResponse<IExporterJobParameters, IExporterTaskParameters>;
+export type IExporterJobResponse = IJobResponse<IExporterCleanupParameters, IExporterTaskParameters>;

@@ -23,7 +23,9 @@ export class CleanupManager {
   private async findExpiredPackages(): Promise<IExporterJobResponse[]> {
     const now = new Date();
     const jobs = await this.jobManagerClient.getCompletedUncleanedJobs();
-    const expiredJobs = jobs.filter((job) => job.expirationDate != undefined && new Date(job.expirationDate) < now);
+    const expiredJobs = jobs.filter(
+      (job) => job.parameters.cleanupData?.cleanupExpirationTime != undefined && new Date(job.parameters.cleanupData.cleanupExpirationTime) < now
+    );
     return expiredJobs;
   }
 
@@ -33,7 +35,7 @@ export class CleanupManager {
   }
 
   private getPackagePath(job: IExporterJobResponse): string {
-    const path = job.parameters.relativeDirectoryPath;
+    const path = job.parameters.cleanupData?.directoryPath as string;
     return path;
   }
 
