@@ -1,5 +1,6 @@
 import { Logger } from '@map-colonies/js-logger';
 import { inject, singleton } from 'tsyringe';
+import { getUTCDate } from '@map-colonies/mc-utils';
 import { JobManagerClient } from '../clients/jobManagerClient';
 import { SERVICES } from '../common/constants';
 import { IExporterJobResponse } from '../common/interfaces';
@@ -21,10 +22,10 @@ export class CleanupManager {
   }
 
   private async findExpiredPackages(): Promise<IExporterJobResponse[]> {
-    const now = new Date();
+    const now = getUTCDate();
     const jobs = await this.jobManagerClient.getCompletedUncleanedJobs();
     const expiredJobs = jobs.filter(
-      (job) => job.parameters.cleanupData?.cleanupExpirationTime != undefined && new Date(job.parameters.cleanupData.cleanupExpirationTime) < now
+      (job) => job.parameters.cleanupData?.cleanupExpirationTimeUTC != undefined && new Date(job.parameters.cleanupData.cleanupExpirationTimeUTC) < now
     );
     return expiredJobs;
   }

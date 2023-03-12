@@ -28,7 +28,7 @@ describe('cleanupCommand', function () {
       parameters: {
         cleanupData: {
           directoryPath: 'test1',
-          cleanupExpirationTime: new Date('2021-04-25T13:11:06.614Z'),
+          cleanupExpirationTimeUTC: new Date('2021-04-25T13:11:06.614Z'),
         },
       },
       created: '2021-04-25T13:10:06.614Z',
@@ -46,7 +46,7 @@ describe('cleanupCommand', function () {
       parameters: {
         cleanupData: {
           directoryPath: 'test2',
-          cleanupExpirationTime: new Date('2021-04-25T13:13:06.614Z'),
+          cleanupExpirationTimeUTC: new Date('2021-04-25T13:13:06.614Z'),
         },
       },
       created: '2021-04-11T13:11:06.614Z',
@@ -65,7 +65,7 @@ describe('cleanupCommand', function () {
       parameters: {
         cleanupData: {
           directoryPath: 'test3',
-          cleanupExpirationTime: new Date('2021-04-25T13:11:06.614Z'),
+          cleanupExpirationTimeUTC: new Date('2021-04-25T13:11:06.614Z'),
         },
       },
       created: '2021-04-25T13:10:06.614Z',
@@ -83,7 +83,7 @@ describe('cleanupCommand', function () {
       parameters: {
         cleanupData: {
           directoryPath: 'test4',
-          cleanupExpirationTime: new Date('2021-04-25T13:13:06.614Z'),
+          cleanupExpirationTimeUTC: new Date('2021-04-25T13:13:06.614Z'),
         },
       },
       created: '2021-04-11T13:11:06.614Z',

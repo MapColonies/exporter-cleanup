@@ -7,20 +7,7 @@ export interface IConfig {
 
 export interface ICleanupData {
   directoryPath?: string;
-  cleanupExpirationTime?: Date;
-}
-
-export interface IExporterTaskParameters {
-  dbId: string;
-  crs: string;
-  zoomLevel: number;
-  callbackURL: string;
-  bbox: unknown;
-  expirationTime: Date;
-  priority: number;
-  tilesPath: string;
-  footprint: unknown;
-  packageName: string;
+  cleanupExpirationTimeUTC?: Date;
 }
 
 export interface IExporterCleanupParameters {
@@ -55,4 +42,4 @@ export interface IJobResponse<P, T> {
   expirationDate?: Date;
 }
 
-export type IExporterJobResponse = IJobResponse<IExporterCleanupParameters, IExporterTaskParameters>;
+export type IExporterJobResponse = IJobResponse<IExporterCleanupParameters, Record<string, unknown>>;
