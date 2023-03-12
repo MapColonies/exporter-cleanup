@@ -1,3 +1,4 @@
+import { IJobResponse } from '@map-colonies/mc-priority-queue';
 import { OperationStatus } from './enums';
 
 export interface IConfig {
@@ -22,24 +23,6 @@ export interface ITaskResponse<T> {
   type: string;
   status: OperationStatus;
   attempts: number;
-}
-
-export interface IJobResponse<P, T> {
-  id: string;
-  resourceId: string;
-  version: string;
-  description: string;
-  parameters: P;
-  status: OperationStatus;
-  reason: string;
-  type: string;
-  percentage: number;
-  priority: number;
-  tasks?: ITaskResponse<T>[];
-  created: Date;
-  updated: Date;
-  isCleaned: boolean;
-  expirationDate?: Date;
 }
 
 export type IExporterJobResponse = IJobResponse<IExporterCleanupParameters, Record<string, unknown>>;
