@@ -1,5 +1,6 @@
 import { Logger } from '@map-colonies/js-logger';
 import { inject, singleton } from 'tsyringe';
+import { getUTCDate } from '@map-colonies/mc-utils';
 import { JobManagerClient } from '../clients/jobManagerClient';
 import { SERVICES } from '../common/constants';
 import { IExporterJobResponse } from '../common/interfaces';
@@ -21,9 +22,12 @@ export class CleanupManager {
   }
 
   private async findExpiredPackages(): Promise<IExporterJobResponse[]> {
-    const now = new Date();
+    const now = getUTCDate();
     const jobs = await this.jobManagerClient.getCompletedUncleanedJobs();
-    const expiredJobs = jobs.filter((job) => job.expirationDate != undefined && new Date(job.expirationDate) < now);
+    const expiredJobs = jobs.filter(
+      (job) =>
+        job.parameters.cleanupData?.cleanupExpirationTimeUTC != undefined && new Date(job.parameters.cleanupData.cleanupExpirationTimeUTC) < now
+    );
     return expiredJobs;
   }
 
@@ -33,7 +37,7 @@ export class CleanupManager {
   }
 
   private getPackagePath(job: IExporterJobResponse): string {
-    const path = job.parameters.relativeDirectoryPath;
+    const path = job.parameters.cleanupData?.directoryPath as string;
     return path;
   }
 

@@ -1,6 +1,6 @@
 import { promises as fsp } from 'fs';
 import { join as pathJoin } from 'path';
-import { ILogger } from '@map-colonies/mc-utils';
+import { Logger } from '@map-colonies/js-logger';
 import { autoInjectable, inject } from 'tsyringe';
 import { SERVICES } from '../../common/constants';
 import { IConfig } from '../../common/interfaces';
@@ -9,7 +9,7 @@ import { IStorageProvider } from '../iStorageProvider';
 @autoInjectable()
 export class FsStorageProvider implements IStorageProvider {
   private readonly basePath: string;
-  public constructor(@inject(SERVICES.CONFIG) private readonly config: IConfig, @inject(SERVICES.LOGGER) private readonly logger: ILogger) {
+  public constructor(@inject(SERVICES.CONFIG) private readonly config: IConfig, @inject(SERVICES.LOGGER) private readonly logger: Logger) {
     this.basePath = config.get('fs.mountDir');
   }
 
