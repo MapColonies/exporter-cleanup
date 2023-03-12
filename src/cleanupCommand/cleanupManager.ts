@@ -25,7 +25,8 @@ export class CleanupManager {
     const now = getUTCDate();
     const jobs = await this.jobManagerClient.getCompletedUncleanedJobs();
     const expiredJobs = jobs.filter(
-      (job) => job.parameters.cleanupData?.cleanupExpirationTimeUTC != undefined && new Date(job.parameters.cleanupData.cleanupExpirationTimeUTC) < now
+      (job) =>
+        job.parameters.cleanupData?.cleanupExpirationTimeUTC != undefined && new Date(job.parameters.cleanupData.cleanupExpirationTimeUTC) < now
     );
     return expiredJobs;
   }
