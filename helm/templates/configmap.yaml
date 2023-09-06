@@ -31,4 +31,5 @@ data:
   S3_BUCKET: {{ quote .Values.rasterCommon.storage.s3.tilesBucket }}
   S3_PREFIX: {{ quote .Values.env.s3.prefix }}
   BATCH_SIZE: {{ quote .Values.env.s3.batchSize }}
+  npm_config_cache: /tmp/
 {{- end }}
