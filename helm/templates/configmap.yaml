@@ -5,7 +5,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-{{ $chartName }}-configmap
+  name: {{ .Release.Name }}-configmap
 data:
   LOG_LEVEL: {{ quote .Values.env.logLevel }}
   LOG_PRETTY_PRINT_ENABLED: {{ quote .Values.env.logPrettyPrintEnabled }}
