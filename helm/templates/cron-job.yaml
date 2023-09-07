@@ -42,7 +42,7 @@ spec:
               {{- end }}
               envFrom:
                 - configMapRef:
-                    name: {{ $releaseName }}-{{ $chartName }}-configmap
+                    name: {{ $releaseName }}-configmap
               env:
                 {{- if .Values.rasterCommon.storage.fs.internalPvc.enabled }}
                 - name: FS_MOUNT_DIR
