@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com/MapColonies/exporter-cleanup/compare/v2.4.0...v2.4.1) (2023-09-20)
+
+
+### Bug Fixes
+
+* removed chart name from template names (MAPCO-3109) ([#17](https://github.com/MapColonies/exporter-cleanup/issues/17)) ([17475d1](https://github.com/MapColonies/exporter-cleanup/commit/17475d1cc3311ee608225c53fcfcd1f2f63fd9f1))
+
 ## [2.4.0](https://github.com/MapColonies/exporter-cleanup/compare/v2.2.0...v2.4.0) (2023-05-01)
 
 
