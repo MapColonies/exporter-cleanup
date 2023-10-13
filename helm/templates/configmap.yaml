@@ -10,11 +10,11 @@ data:
   LOG_LEVEL: {{ quote .Values.env.logLevel }}
   LOG_PRETTY_PRINT_ENABLED: {{ quote .Values.env.logPrettyPrintEnabled }}
   {{ if .Values.env.tracing.enabled }}
-  TELEMETRY_TRACING_ENABLED: 'false'
+  TELEMETRY_TRACING_ENABLED: 'true'
   TELEMETRY_TRACING_URL: {{ $tracingUrl }}
   {{ end }}
   {{ if .Values.env.metrics.enabled }}
-  TELEMETRY_METRICS_ENABLED: 'false'
+  TELEMETRY_METRICS_ENABLED: 'true'
   TELEMETRY_METRICS_URL: {{ $metricsUrl }}
   {{ end }}
   HTTP_RETRY_ATTEMPTS: {{ quote .Values.env.httpRetry.attempts }}
