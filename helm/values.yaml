@@ -60,6 +60,15 @@ storage:
     sslEnabled: false
     secretName: ""
 
+# add pod annotations
+# example:
+# podAnnotations:
+  # annotation1: annotation-value-1
+  # annotation2: annotation-value-2
+podAnnotations:
+  annotation1: annotation-value-1
+  annotation2: annotation-value-2
+
 env:
   logLevel: warn
   logPrettyPrintEnabled: false

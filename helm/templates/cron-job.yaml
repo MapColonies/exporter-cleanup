@@ -28,6 +28,11 @@ spec:
   jobTemplate:
     spec:
       template:
+        metadata:
+          annotations:
+          {{- if .Values.podAnnotations }}
+          {{- toYaml .Values.podAnnotations | nindent 12 }}
+          {{- end }}
         spec:
           {{- if $cloudProviderImagePullSecretName }}
           imagePullSecrets:
