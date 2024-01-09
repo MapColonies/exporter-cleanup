@@ -3,6 +3,24 @@ global:
   tracing: {}
   metrics: {}
   environment: {}
+  serviceUrls:
+    jobManager: ""
+  jobManagement:
+    exporter:
+      jobType: ""
+      taskTilesType: ""
+  storage:
+    gpkgProvider: ""
+    fs:
+      internalPvc:
+        enabled: false
+        name: ""
+        gpkgSubPath: ""
+    s3:
+      endpointUrl: ""
+      tilesBucket: ""
+      sslEnabled: false
+      secretName: ""
 
 enabled: true
 environment: development
@@ -23,31 +41,24 @@ cron:
   concurrencyPolicy: Forbid
   restartPolicy: OnFailure
 
-rasterCommon:
-  serviceUrls:
-    jobManager: "http://job-manager-raster-dev-discrete-ingestion-db"
-  jobManagement:
-    exporter:
-      jobType: tilesExport
-      taskType: tilesExport
-  storage:
-    gpkgProvider: FS
-    fs:
-      internalPvc:
-        enabled: true
-        name: gpkgs-storage
-        gpkgSubPath: gpkgs
-    s3:
-      endpointUrl: "10.8.1.13:9000"
-      tilesBucket: "raster-tiles-raster-dev"
-      sslEnabled: false
-      secretName: "getmap-s3-secret"
-      apiVersion: 2006-03-01
-
-s3LocalSecret:
-  create: false #use for stand alone testing, global s3 secret name should be provided for full deployment
-  accessKeyId: "" #use for stand alone testing, global s3 secret name should be provided for full deployment
-  secretAccessKey: "" #use for stand alone testing, global s3 secret name should be provided for full deployment
+serviceUrls:
+  jobManager: ""
+jobManagement:
+  exporter:
+    jobType: ""
+    taskTilesType: ""
+storage:
+  gpkgProvider: ""
+  fs:
+    internalPvc:
+      enabled: false
+      name: ""
+      gpkgSubPath: ""
+  s3:
+    endpointUrl: ""
+    tilesBucket: ""
+    sslEnabled: false
+    secretName: ""
 
 env:
   logLevel: warn
@@ -64,8 +75,9 @@ env:
     shouldResetTimeout: true
   s3:
     maxRetries: 3
-    prefix: ''
+    prefix: ""
     batchSize: 100
+    apiVersion: 2006-03-01
 
 resources:
   enabled: true
@@ -76,4 +88,9 @@ resources:
     requests:
       cpu: 100m
       memory: 128Mi
+
+s3LocalSecret:
+  create: false #use for stand alone testing, global s3 secret name should be provided for full deployment
+  accessKeyId: "" #use for stand alone testing, global s3 secret name should be provided for full deployment
+  secretAccessKey: "" #use for stand alone testing, global s3 secret name should be provided for full deployment
 
