@@ -65,9 +65,7 @@ storage:
 # podAnnotations:
   # annotation1: annotation-value-1
   # annotation2: annotation-value-2
-podAnnotations:
-  annotation1: annotation-value-1
-  annotation2: annotation-value-2
+podAnnotations: {}
 
 env:
   logLevel: warn
