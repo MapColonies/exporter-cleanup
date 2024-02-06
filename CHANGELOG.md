@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.4](https://github.com/MapColonies/exporter-cleanup/compare/v2.4.3...v2.4.4) (2024-02-06)
+
+
+### Bug Fixes
+
+* merge operator values ([#20](https://github.com/MapColonies/exporter-cleanup/issues/20)) ([4a5154e](https://github.com/MapColonies/exporter-cleanup/commit/4a5154e4571b1bbe374adf19ce7122e7733017e6))
+
 ### [2.4.3](https://github.com/MapColonies/exporter-cleanup/compare/v2.4.2...v2.4.3) (2024-02-06)
 
 ### [2.4.2](https://github.com/MapColonies/exporter-cleanup/compare/v2.4.1...v2.4.2) (2023-10-12)
