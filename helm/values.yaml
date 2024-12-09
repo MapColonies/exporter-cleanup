@@ -5,10 +5,8 @@ global:
   environment: ""
   serviceUrls:
     jobManager: ""
-  jobManagement:
-    exporter:
-      jobType: ""
-      taskTilesType: ""
+  jobDefinitions: {}
+
   storage:
     gpkgProvider: ""
     fs:
@@ -43,10 +41,15 @@ cron:
 
 serviceUrls:
   jobManager: ""
-jobManagement:
-  exporter:
-    jobType: ""
-    taskTilesType: ""
+
+jobDefinitions:
+  jobs:
+    export:
+      type: ""
+  tasks:
+    export:
+      type: ""
+
 storage:
   gpkgProvider: ""
   fs:
