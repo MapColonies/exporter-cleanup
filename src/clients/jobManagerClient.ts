@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import config from 'config';
 import { HttpClient, IHttpRetryConfig } from '@map-colonies/mc-utils';
 import { Logger } from '@map-colonies/js-logger';
-import { IExporterJobResponse } from '../common/interfaces';
+import { IExporterJobResponse, IJobResponseWithoutParams } from '../common/interfaces';
 import { SERVICES } from '../common/constants';
 import { OperationStatus } from '../common/enums';
 
@@ -24,11 +24,12 @@ export class JobManagerClient extends HttpClient {
       type: this.tilesJobType,
       shouldReturnTasks: false,
     };
-    const res = await this.get<IExporterJobResponse[] | undefined>('/jobs', query);
+    const res = await this.get<IJobResponseWithoutParams[] | undefined>('/jobs', query);
     if (!res) {
       return [];
     }
-    return res;
+    const jobsWithParams = await this.getJobsWithParams(res);
+    return jobsWithParams;
   }
 
   public async getFailedUncleanedJobs(): Promise<IExporterJobResponse[]> {
@@ -38,11 +39,12 @@ export class JobManagerClient extends HttpClient {
       type: this.tilesJobType,
       shouldReturnTasks: false,
     };
-    const res = await this.get<IExporterJobResponse[] | undefined>('/jobs', query);
+    const res = await this.get<IJobResponseWithoutParams[] | undefined>('/jobs', query);
     if (!res) {
       return [];
     }
-    return res;
+    const jobsWithParams = await this.getJobsWithParams(res);
+    return jobsWithParams;
   }
 
   public async updateCleaned(jobId: string): Promise<void> {
@@ -50,5 +52,17 @@ export class JobManagerClient extends HttpClient {
       isCleaned: true,
     };
     await this.put(`/jobs/${jobId}`, body);
+  }
+
+  private async getJobsWithParams(jobs: IJobResponseWithoutParams[]): Promise<IExporterJobResponse[]> {
+    const jobsWithParams = await Promise.all(jobs.map(async (job) => this.getExportJobById(job.id)));
+    this.logger.info({ msg: `Got ${jobsWithParams.length} jobs with params` });
+    return jobsWithParams;
+  }
+
+  private async getExportJobById(jobId: string): Promise<IExporterJobResponse> {
+    this.logger.debug({ msg: `Getting export job by id`, jobId });
+    const job = await this.get<IExporterJobResponse>(`/jobs/${jobId}`);
+    return job;
   }
 }
