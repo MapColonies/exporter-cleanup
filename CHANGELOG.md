@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.6](https://github.com/MapColonies/exporter-cleanup/compare/v2.4.5...v2.4.6) (2025-02-23)
+
+
+### Bug Fixes
+
+* jobs missing params(MAPCO-6822) ([ca07651](https://github.com/MapColonies/exporter-cleanup/commit/ca07651dcfd89fb2abfb5f9acf2883b7a5a079ea))
+* jobs missing params(MAPCO-6822) ([#23](https://github.com/MapColonies/exporter-cleanup/issues/23)) ([38b52b1](https://github.com/MapColonies/exporter-cleanup/commit/38b52b1c31f2e6099efa31e129f73e50e2a9ccfd))
+
 ### [2.4.5](https://github.com/MapColonies/exporter-cleanup/compare/v2.4.4...v2.4.5) (2024-12-09)
 
 ### [2.4.4](https://github.com/MapColonies/exporter-cleanup/compare/v2.4.3...v2.4.4) (2024-02-06)
