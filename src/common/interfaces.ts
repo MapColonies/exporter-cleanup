@@ -15,5 +15,3 @@ export interface IExporterCleanupParameters {
 }
 
 export type IExporterJobResponse = IJobResponse<IExporterCleanupParameters, Record<string, unknown>>;
-
-export type IJobResponseWithoutParams = Omit<IExporterJobResponse, 'parameters'>;
