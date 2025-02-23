@@ -1,1 +1,47 @@
-{}
+{
+  "telemetry": {
+    "logger": {
+      "level": "info",
+      "prettyPrint": false
+    },
+    "tracing": {
+      "enabled": false,
+      "url": "http://telemetryUrl/tracing"
+    },
+    "metrics": {
+      "enabled": false,
+      "url": "http://telemetryUrl/metrics",
+      "interval": "3"
+    }
+  },
+  "httpRetry": {
+    "attempts": 5,
+    "delay": "exponential",
+    "shouldResetTimeout": true
+  },
+  "jobManager": {
+    "url": "http://job-manager-job-manager"
+  },
+  "workerTypes": {
+    "tiles": {
+      "jobType": "rasterTilesExporter1",
+      "taskType": "rasterTilesExporter1"
+    }
+  },
+  "storage_provider": "S3",
+  "fs": {
+    "mountDir": "/packages",
+    "subPath": ""
+  },
+  "s3": {
+    "apiVersion": "2006-03-01",
+    "endpoint": "http://localhost:9000",
+    "accessKeyId": "minioadmin",
+    "secretAccessKey": "minioadmin",
+    "sslEnabled": false,
+    "maxRetries": 3,
+    "bucket": "raster",
+    "prefix": "",
+    "batchSize": 1000
+  }
+}
