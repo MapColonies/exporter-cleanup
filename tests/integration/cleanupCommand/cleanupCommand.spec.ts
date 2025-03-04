@@ -13,8 +13,8 @@ import {
 } from '../../mocks/clients/jobManagerClient';
 import { deleteMock, providerMock } from '../../mocks/storageProviders/storageProvider';
 import { clearConfig, initConfig, configMock } from '../../mocks/config';
-import { CleanupCommandCliTrigger } from './helpers/CliTrigger';
 import { completedExportJobsResponse, failedExportJobResponses } from '../../mocks/jobResponsesMocks';
+import { CleanupCommandCliTrigger } from './helpers/CliTrigger';
 
 describe('cleanupCommand', function () {
   let cli: CleanupCommandCliTrigger;
