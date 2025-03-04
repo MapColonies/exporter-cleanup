@@ -2,29 +2,28 @@ import { inject, injectable } from 'tsyringe';
 import config from 'config';
 import { HttpClient, IHttpRetryConfig } from '@map-colonies/mc-utils';
 import { Logger } from '@map-colonies/js-logger';
+import { IFindJobsRequest } from '@map-colonies/mc-priority-queue';
 import { IExporterJobResponse, IJobResponseWithoutParams } from '../common/interfaces';
 import { SERVICES } from '../common/constants';
 import { OperationStatus } from '../common/enums';
 
 @injectable()
 export class JobManagerClient extends HttpClient {
-  private readonly tilesJobType: string;
-  private readonly tilesTaskType: string;
+  private readonly exportJobType: string;
 
   public constructor(@inject(SERVICES.LOGGER) protected readonly logger: Logger) {
     super(logger, config.get<string>('jobManager.url'), 'JobManager', config.get<IHttpRetryConfig>('httpRetry'));
-    this.tilesJobType = config.get<string>('workerTypes.tiles.jobType');
-    this.tilesTaskType = config.get<string>('workerTypes.tiles.taskType');
+    this.exportJobType = config.get<string>('jobDefinitions.jobs.export.type');
   }
 
   public async getCompletedUncleanedJobs(): Promise<IExporterJobResponse[]> {
-    const query = {
+    const query: IFindJobsRequest = {
       isCleaned: false,
       status: OperationStatus.COMPLETED,
-      type: this.tilesJobType,
+      type: this.exportJobType,
       shouldReturnTasks: false,
     };
-    const res = await this.get<IJobResponseWithoutParams[] | undefined>('/jobs', query);
+    const res = await this.get<IJobResponseWithoutParams[] | undefined>('/jobs', query as unknown as Record<string, unknown>);
     if (!res) {
       return [];
     }
@@ -33,13 +32,13 @@ export class JobManagerClient extends HttpClient {
   }
 
   public async getFailedUncleanedJobs(): Promise<IExporterJobResponse[]> {
-    const query = {
+    const query: IFindJobsRequest = {
       isCleaned: false,
       status: OperationStatus.FAILED,
-      type: this.tilesJobType,
+      type: this.exportJobType,
       shouldReturnTasks: false,
     };
-    const res = await this.get<IJobResponseWithoutParams[] | undefined>('/jobs', query);
+    const res = await this.get<IJobResponseWithoutParams[] | undefined>('/jobs', query as unknown as Record<string, unknown>);
     if (!res) {
       return [];
     }

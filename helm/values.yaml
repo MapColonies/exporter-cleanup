@@ -13,7 +13,8 @@ global:
       internalPvc:
         enabled: false
         name: ""
-        gpkgSubPath: ""
+        gpkgSubPath: "/gpkg"
+        outputPath: "/packages"
     s3:
       endpointUrl: ""
       tilesBucket: ""

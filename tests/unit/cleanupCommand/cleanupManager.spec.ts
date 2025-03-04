@@ -7,90 +7,11 @@ import {
   getFailedUncleanedJobsMock,
   updateCleanedMock,
 } from '../../mocks/clients/jobManagerClient';
-
-const failedJobs = [
-  {
-    id: '37451d7f-aaa3-4bc6-9e68-7cb5eae764b1',
-    resourceId: 'demo_1',
-    version: 'tiles',
-    parameters: {
-      cleanupData: {
-        directoryPath: 'test1',
-        cleanupExpirationTimeUTC: new Date('2021-04-25T13:11:06.614Z'),
-      },
-    },
-    created: '2021-04-25T13:10:06.614Z',
-    updated: '2021-04-25T13:10:06.614Z',
-    status: 'Failed',
-    reason: '',
-    isCleaned: false,
-    expirationDate: undefined,
-  },
-  {
-    id: '37451d7f-aaa3-4bc6-9e68-7cb5eae764b2',
-    resourceId: 'demo_2',
-    version: 'tiles',
-    tasks: [],
-    parameters: {
-      cleanupData: {
-        directoryPath: 'test2',
-        cleanupExpirationTimeUTC: new Date('2021-04-25T13:13:06.614Z'),
-      },
-    },
-    created: '2021-04-11T13:11:06.614Z',
-    updated: '2021-04-11T13:11:06.614Z',
-    status: 'Failed',
-    reason: '',
-    isCleaned: true,
-    expirationDate: undefined,
-  },
-];
-const successfulJobs = [
-  {
-    id: '37451d7f-aaa3-4bc6-9e68-7cb5eae764b3',
-    resourceId: 'demo_3',
-    version: 'tiles',
-    parameters: {
-      cleanupData: {
-        directoryPath: 'test3',
-        cleanupExpirationTimeUTC: new Date('2021-04-25T13:11:06.614Z'),
-      },
-    },
-    created: '2021-04-25T13:10:06.614Z',
-    updated: '2021-04-25T13:10:06.614Z',
-    status: 'Completed',
-    reason: '',
-    isCleaned: false,
-    expirationDate: undefined,
-  },
-  {
-    id: '37451d7f-aaa3-4bc6-9e68-7cb5eae764b4',
-    resourceId: 'demo_4',
-    version: 'tiles',
-    tasks: [],
-    parameters: {
-      cleanupData: {
-        directoryPath: 'test4',
-        cleanupExpirationTimeUTC: new Date('2021-04-25T13:13:06.614Z'),
-      },
-      relativeDirectoryPath: 'test4',
-    },
-    created: '2021-04-11T13:11:06.614Z',
-    updated: '2021-04-11T13:11:06.614Z',
-    status: 'Completed',
-    reason: '',
-    isCleaned: true,
-    expirationDate: undefined,
-  },
-];
+import { completedExportJobsResponse, failedExportJobResponses } from '../../mocks/jobResponsesMocks';
 
 describe('CleanupManager', () => {
   const logger = jsLogger({ enabled: false });
   let manager: CleanupManager;
-
-  beforeAll(() => {
-    jest.useFakeTimers().setSystemTime(new Date('2021-04-25T13:12:06.614Z'));
-  });
 
   beforeEach(() => {
     manager = new CleanupManager(logger, providerMock, jobManagerClientMock);
@@ -107,8 +28,8 @@ describe('CleanupManager', () => {
 
   describe('cleanPackages', () => {
     it('deletes all failed and expired packages', async () => {
-      getCompletedUncleanedJobsMock.mockResolvedValue(successfulJobs);
-      getFailedUncleanedJobsMock.mockResolvedValue(failedJobs);
+      getCompletedUncleanedJobsMock.mockResolvedValue(completedExportJobsResponse);
+      getFailedUncleanedJobsMock.mockResolvedValue(failedExportJobResponses);
       updateCleanedMock.mockResolvedValue(undefined);
       deleteMock.mockResolvedValue(undefined);
 
@@ -117,13 +38,13 @@ describe('CleanupManager', () => {
       expect(getCompletedUncleanedJobsMock).toHaveBeenCalledTimes(1);
       expect(getFailedUncleanedJobsMock).toHaveBeenCalledTimes(1);
       expect(updateCleanedMock).toHaveBeenCalledTimes(3);
-      expect(updateCleanedMock).toHaveBeenNthCalledWith(1, '37451d7f-aaa3-4bc6-9e68-7cb5eae764b3');
-      expect(updateCleanedMock).toHaveBeenNthCalledWith(2, '37451d7f-aaa3-4bc6-9e68-7cb5eae764b1');
-      expect(updateCleanedMock).toHaveBeenNthCalledWith(3, '37451d7f-aaa3-4bc6-9e68-7cb5eae764b2');
+      expect(updateCleanedMock).toHaveBeenNthCalledWith(1, '8eddc842-64ee-4e90-b3a5-b10d9e86acb2');
+      expect(updateCleanedMock).toHaveBeenNthCalledWith(2, '111dc842-64ee-4e90-b3a5-b10d9e86acb2');
+      expect(updateCleanedMock).toHaveBeenNthCalledWith(3, '8eddc842-64ee-4e90-b3a5-b10d9e11111');
       expect(deleteMock).toHaveBeenCalledTimes(3);
-      expect(deleteMock).toHaveBeenNthCalledWith(1, 'test3');
-      expect(deleteMock).toHaveBeenNthCalledWith(2, 'test1');
-      expect(deleteMock).toHaveBeenNthCalledWith(3, 'test2');
+      expect(deleteMock).toHaveBeenNthCalledWith(1, 'test1');
+      expect(deleteMock).toHaveBeenNthCalledWith(2, 'test2');
+      expect(deleteMock).toHaveBeenNthCalledWith(3, 'test3');
     });
   });
 });
