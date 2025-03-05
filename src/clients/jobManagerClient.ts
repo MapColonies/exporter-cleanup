@@ -23,7 +23,7 @@ export class JobManagerClient extends HttpClient {
       type: this.exportJobType,
       shouldReturnTasks: false,
     };
-    const res = await this.get<IJobResponseWithoutParams[] | undefined>('/jobs', query as unknown as Record<string, unknown>);
+    const res = await this.get<IJobResponseWithoutParams[] | undefined>('/jobs', query as Record<string, unknown>);
     if (!res) {
       return [];
     }
