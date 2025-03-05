@@ -27,7 +27,7 @@ describe('JobManagerClient', () => {
     it('calls get with correct query', async () => {
       const getSpy = jest.spyOn(jobManagerClient as unknown as { get: jest.Func }, 'get');
       const path = '/jobs';
-      expectedQuery.type = jobManagerClient['tilesJobType'];
+      expectedQuery.type = jobManagerClient['exportJobType'];
 
       nock(jobManagerUrl).get(path).query(expectedQuery).reply(200, []);
 
@@ -75,7 +75,7 @@ describe('JobManagerClient', () => {
       const getSpy = jest.spyOn(jobManagerClient as unknown as { get: jest.Func }, 'get');
       const path = '/jobs';
 
-      expectedQuery.type = jobManagerClient['tilesJobType'];
+      expectedQuery.type = jobManagerClient['exportJobType'];
 
       nock(jobManagerUrl).get(path).query(expectedQuery).reply(200, []);
 
@@ -86,7 +86,7 @@ describe('JobManagerClient', () => {
     });
 
     it('returns empty array if response is undefined', async () => {
-      expectedQuery.type = jobManagerClient['tilesJobType'];
+      expectedQuery.type = jobManagerClient['exportJobType'];
 
       nock(jobManagerUrl).get('/jobs').query(expectedQuery).reply(200, undefined);
 
@@ -102,7 +102,7 @@ describe('JobManagerClient', () => {
         { id: '2', parameters: {} },
       ];
 
-      expectedQuery.type = jobManagerClient['tilesJobType'];
+      expectedQuery.type = jobManagerClient['exportJobType'];
 
       nock(jobManagerUrl).get('/jobs').query(expectedQuery).reply(200, jobsWithoutParams);
 

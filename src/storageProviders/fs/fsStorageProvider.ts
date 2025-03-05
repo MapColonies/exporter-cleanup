@@ -17,7 +17,7 @@ export class FsStorageProvider implements IStorageProvider {
     const fullPath = pathJoin(this.basePath, path);
     this.logger.info(`Deleting entire exporting path ${fullPath}`);
     try {
-      await fsp.rmdir(fullPath, { recursive: true });
+      await fsp.rm(fullPath, { recursive: true });
     } catch (err) {
       const error = err as NodeJS.ErrnoException;
       //ignore file not found error

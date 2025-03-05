@@ -7,18 +7,7 @@ global:
     jobManager: ""
   jobDefinitions: {}
 
-  storage:
-    gpkgProvider: ""
-    fs:
-      internalPvc:
-        enabled: false
-        name: ""
-        gpkgSubPath: ""
-    s3:
-      endpointUrl: ""
-      tilesBucket: ""
-      sslEnabled: false
-      secretName: ""
+  storage: {}
 
 enabled: true
 environment: development
@@ -57,6 +46,7 @@ storage:
       enabled: false
       name: ""
       gpkgSubPath: ""
+      outputPath: ""
   s3:
     endpointUrl: ""
     tilesBucket: ""
