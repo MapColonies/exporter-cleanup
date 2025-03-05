@@ -59,7 +59,6 @@ describe('cleanupCommand', function () {
 
   describe('Happy Path', function () {
     it('clean uncleaned packages', async function () {
-      //jest.setSystemTime(new Date('2021-04-25T13:12:06.614Z'));
       getCompletedUncleanedJobsMock.mockResolvedValue(completedExportJobsResponse);
       getFailedUncleanedJobsMock.mockResolvedValue(failedExportJobResponses);
       deleteMock.mockResolvedValue(undefined);
