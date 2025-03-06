@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/MapColonies/exporter-cleanup/compare/v2.4.6...v3.0.0) (2025-03-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* add raster-shared support with new parameters structure(MAPCO-6887) (#24)
+
+### Features
+
+* add raster-shared support with new parameters structure(MAPCO-6887) ([#24](https://github.com/MapColonies/exporter-cleanup/issues/24)) ([9bfd56a](https://github.com/MapColonies/exporter-cleanup/commit/9bfd56a052d47478811b61de034be57e69480f96))
+
 ### [2.4.6](https://github.com/MapColonies/exporter-cleanup/compare/v2.4.5...v2.4.6) (2025-02-23)
 
 
