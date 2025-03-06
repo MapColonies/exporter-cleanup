@@ -34,10 +34,11 @@
   "jobManager": {
     "url": "JOB_MANAGER_URL"
   },
-  "workerTypes": {
-    "tiles": {
-      "jobType": "WORKER_TYPES_TILES_JOB_TYPE",
-      "taskType": "WORKER_TYPES_TILES_TASK_TYPE"
+  "jobDefinitions": {
+    "jobs": {
+      "export": {
+        "type": "EXPORT_JOB_TYPE"
+      }
     }
   },
   "storage_provider": "STORAGE_PROVIDER",

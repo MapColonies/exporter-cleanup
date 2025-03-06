@@ -26,8 +26,7 @@ data:
   HTTP_RETRY_DELAY: {{ quote .Values.env.httpRetry.delay }}
   HTTP_RETRY_RESET_TIMEOUT: {{ quote .Values.env.httpRetry.delay }}
   JOB_MANAGER_URL: {{ $serviceUrls.jobManager }}
-  WORKER_TYPES_TILES_JOB_TYPE: {{ $jobDefinitions.jobs.export.type | quote }}
-  WORKER_TYPES_TILES_TASK_TYPE: {{ $jobDefinitions.tasks.export.type | quote }}
+  EXPORT_JOB_TYPE: {{ $jobDefinitions.jobs.export.type | quote }}
   STORAGE_PROVIDER: {{ $storage.gpkgProvider | quote  }}
   S3_API_VERSION: {{ .Values.env.s3.apiVersion | quote  }}
   S3_ENDPOINT: {{ $s3.endpointUrl | quote  }}

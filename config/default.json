@@ -22,10 +22,11 @@
   "jobManager": {
     "url": "http://job-manager-job-manager"
   },
-  "workerTypes": {
-    "tiles": {
-      "jobType": "rasterTilesExporter",
-      "taskType": "rasterTilesExporter"
+  "jobDefinitions": {
+    "jobs": {
+      "export": {
+        "type": "Export"
+      }
     }
   },
   "storage_provider": "S3",

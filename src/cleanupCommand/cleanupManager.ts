@@ -26,7 +26,8 @@ export class CleanupManager {
     const jobs = await this.jobManagerClient.getCompletedUncleanedJobs();
     const expiredJobs = jobs.filter(
       (job) =>
-        job.parameters.cleanupData?.cleanupExpirationTimeUTC != undefined && new Date(job.parameters.cleanupData.cleanupExpirationTimeUTC) < now
+        job.parameters.cleanupDataParams?.cleanupExpirationTimeUTC != undefined &&
+        new Date(job.parameters.cleanupDataParams.cleanupExpirationTimeUTC) < now
     );
     return expiredJobs;
   }
@@ -37,7 +38,7 @@ export class CleanupManager {
   }
 
   private getPackagePath(job: IExporterJobResponse): string {
-    const path = job.parameters.cleanupData?.directoryPath as string;
+    const path = job.parameters.cleanupDataParams?.directoryPath as string;
     return path;
   }
 
