@@ -1,5 +1,5 @@
 import { autoInjectable, inject } from 'tsyringe';
-import { S3, DeleteObjectsCommand, DeleteObjectsCommandInput } from '@aws-sdk/client-s3';
+import { S3, DeleteObjectsCommand, DeleteObjectsCommandInput , DeleteObjectCommand} from '@aws-sdk/client-s3';
 import { Logger } from '@map-colonies/js-logger';
 import { SERVICES } from '../../common/constants';
 import { IConfig } from '../../common/interfaces';
@@ -71,16 +71,28 @@ export class S3StorageProvider implements IStorageProvider {
   private async deleteFromS3(s3Keys: S3Key[]): Promise<void> {
     this.logger.debug(`Deleting objects from bucket ${this.s3Config.bucket}`);
     this.logger.debug(JSON.stringify(s3Keys));
-    /* eslint-disable @typescript-eslint/naming-convention  */
-    const input: DeleteObjectsCommandInput = {
-      Bucket: this.s3Config.bucket,
-      Delete: {
-        Objects: s3Keys,
-        Quiet: true,
-      },
-    };
-    /* eslint-disable @typescript-eslint/naming-convention  */
-    const command = new DeleteObjectsCommand(input);
-    await this.s3.send(command);
+    // /* eslint-disable @typescript-eslint/naming-convention  */
+    // const input: DeleteObjectsCommandInput = {
+    //   Bucket: this.s3Config.bucket,
+    //   Delete: {
+    //     Objects: s3Keys,
+    //     Quiet: true,
+    //   },
+    // };
+    // /* eslint-disable @typescript-eslint/naming-convention  */
+    // const command = new DeleteObjectsCommand(input);
+    // await this.s3.send(command);
+    const deletePromises = s3Keys.map((key) =>
+      this.s3.send(
+        new DeleteObjectCommand({
+          Bucket: this.s3Config.bucket,
+          Key: key.Key,
+          //Key: key,
+        }),
+      ),
+    );
+    await Promise.all(deletePromises);
+  
   }
+  
 }
