@@ -1,5 +1,6 @@
+import { StorageClass } from '@aws-sdk/client-s3';
+
 export interface IS3Config {
-  apiVersion: string;
   endpoint: string;
   accessKeyId: string;
   secretAccessKey: string;
@@ -8,4 +9,7 @@ export interface IS3Config {
   bucket: string;
   prefix: string;
   batchSize: number;
+  storageClass?: StorageClass;
+  region: string;
+  forcePathStyle: boolean;
 }
