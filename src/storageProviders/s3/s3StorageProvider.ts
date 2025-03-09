@@ -1,6 +1,5 @@
 import { autoInjectable, inject } from 'tsyringe';
-import { S3, Credentials } from 'aws-sdk';
-import { CredentialsOptions } from 'aws-sdk/lib/credentials';
+import { S3, DeleteObjectsCommand, DeleteObjectsCommandInput } from '@aws-sdk/client-s3';
 import { Logger } from '@map-colonies/js-logger';
 import { SERVICES } from '../../common/constants';
 import { IConfig } from '../../common/interfaces';
@@ -25,18 +24,17 @@ export class S3StorageProvider implements IStorageProvider {
 
   public constructor(@inject(SERVICES.CONFIG) private readonly config: IConfig, @inject(SERVICES.LOGGER) private readonly logger: Logger) {
     this.s3Config = this.config.get<IS3Config>('s3');
-    const credentials: CredentialsOptions = {
+    const credentials = {
       accessKeyId: this.s3Config.accessKeyId,
       secretAccessKey: this.s3Config.secretAccessKey,
     };
-    const awsCredentials = new Credentials(credentials);
     this.s3 = new S3({
-      credentials: awsCredentials,
+      credentials: credentials,
       endpoint: this.s3Config.endpoint,
-      sslEnabled: this.s3Config.sslEnabled,
-      s3ForcePathStyle: true,
-      apiVersion: this.s3Config.apiVersion,
-      maxRetries: this.s3Config.maxRetries,
+      tls: this.s3Config.sslEnabled,
+      forcePathStyle: this.s3Config.forcePathStyle,
+      maxAttempts: this.s3Config.maxRetries,
+      region: this.s3Config.region,
     });
     this.batchSize = this.s3Config.batchSize;
   }
@@ -54,14 +52,12 @@ export class S3StorageProvider implements IStorageProvider {
   private async parseItemsFromS3(prefix: string, continuationToken?: string): Promise<S3FindResponse> {
     this.logger.debug(`Listing objects with prefix ${prefix} from bucket ${this.s3Config.bucket}`);
     /* eslint-disable @typescript-eslint/naming-convention */
-    const res = await this.s3
-      .listObjectsV2({
-        Bucket: this.s3Config.bucket,
-        MaxKeys: this.batchSize,
-        Prefix: prefix,
-        ContinuationToken: continuationToken,
-      })
-      .promise();
+    const res = await this.s3.listObjectsV2({
+      Bucket: this.s3Config.bucket,
+      MaxKeys: this.batchSize,
+      Prefix: prefix,
+      ContinuationToken: continuationToken,
+    });
     const itemsToDelete = res.Contents?.map((content) => {
       return { Key: content.Key as string };
     });
@@ -75,7 +71,16 @@ export class S3StorageProvider implements IStorageProvider {
   private async deleteFromS3(s3Keys: S3Key[]): Promise<void> {
     this.logger.debug(`Deleting objects from bucket ${this.s3Config.bucket}`);
     this.logger.debug(JSON.stringify(s3Keys));
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    await this.s3.deleteObjects({ Bucket: this.s3Config.bucket, Delete: { Objects: s3Keys } }).promise();
+    /* eslint-disable @typescript-eslint/naming-convention  */
+    const input: DeleteObjectsCommandInput = {
+      Bucket: this.s3Config.bucket,
+      Delete: {
+        Objects: s3Keys,
+        Quiet: true,
+      },
+    };
+    /* eslint-disable @typescript-eslint/naming-convention  */
+    const command = new DeleteObjectsCommand(input);
+    await this.s3.send(command);
   }
 }
