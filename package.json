@@ -12,7 +12,6 @@
     "prelint": "npm run format",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "release": "standard-version",
     "test": "npm run test:unit && npm run test:integration",
     "prebuild": "npm run clean",
     "build": "tsc --project tsconfig.build.json  && npm run assets:copy",
@@ -29,11 +28,6 @@
     "node": ">=22.0.0"
   },
   "license": "ISC",
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
   "dependencies": {
     "@map-colonies/js-logger": "^1.0.1",
     "@map-colonies/mc-priority-queue": "^8.2.1",
@@ -46,14 +40,13 @@
     "config": "^4.0.1",
     "reflect-metadata": "^0.2.2",
     "tsyringe": "^4.10.0",
-    "yargs": "^18.0.0"
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@map-colonies/eslint-config": "^6.0.0",
     "@map-colonies/prettier-config": "0.0.1",
-    "@map-colonies/standard-version-update-helm-version": "^2.0.1",
     "@types/config": "3.3.5",
     "@types/express": "^5.0.3",
     "@types/jest": "^30.0.0",
@@ -61,7 +54,6 @@
     "eslint": "^9.31.0",
     "commitlint": "^19.8.1",
     "copyfiles": "^2.4.1",
-    "cz-conventional-changelog": "^3.3.0",
     "husky": "^9.1.7",
     "jest": "^30.0.4",
     "jest-create-mock-instance": "^2.0.0",
@@ -70,7 +62,6 @@
     "prettier": "^3.6.2",
     "pretty-quick": "^4.2.2",
     "rimraf": "^6.0.1",
-    "standard-version": "^9.5.0",
     "ts-jest": "^29.4.0",
     "typescript": "^5.8.3"
   },

@@ -1,13 +1,15 @@
+const { createDefaultPreset } = require('ts-jest');
 module.exports = {
+  ...createDefaultPreset,
   transform: {
-    '^.+\\.ts$': 'ts-jest',
+    '^.+.tsx?$': [
+      'ts-jest',
+      {
+        /* ts-jest config goes here in Jest */
+      },
+    ],
   },
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.test.json',
-    },
-  },
-  coverageReporters: ['text', 'html'],
+  rageReporters: ['text', 'html'],
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.ts', '!*/node_modules/', '!/vendor/**', '!*/common/**', '!**/models/**', '!<rootDir>/src/*'],
   coverageDirectory: '<rootDir>/coverage',
