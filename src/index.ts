@@ -1,7 +1,7 @@
 /* eslint-disable import/first */
 // this import must be called before the first import of tsyring
 import 'reflect-metadata';
-import { tracing } from './common/tracing';
+import { getTracing } from './common/tracing';
 import { getApp } from './app';
 
 async function main(): Promise<void> {
@@ -10,7 +10,7 @@ async function main(): Promise<void> {
   await app.run(process.argv);
 
   //stop tracing when app finish running
-  await Promise.all([tracing.stop()]);
+  await Promise.all([getTracing().stop()]);
 }
 
 void main();
